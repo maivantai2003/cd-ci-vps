@@ -11,5 +11,5 @@ export class UserRefreshToken {
     expiresAt!: Date;
     @ManyToOne(() => User, (user) => user.userRefreshToken, { onDelete: "CASCADE" })
     @JoinColumn({ name: "userId" })
-    user!:User
+    user:User
 }
