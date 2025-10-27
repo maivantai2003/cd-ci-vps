@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 22
       - name: Install dependencies
-        run: npm ci
+        run: npm install
       - name: Buid TypeScript
         run: npm run build
       - name: Login to DockerHub
