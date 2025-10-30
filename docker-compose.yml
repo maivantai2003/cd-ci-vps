@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  backend:
+    container_name: ci-cd-vps-backend
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - HOST=postgres
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=Vantai@12
+      - DB_NAME=vps_database
+      - API_KEY=maivantai_api_key
+      - JWT_ACCESS_SECRET=maivantai_nodejs_secret
+      - JWT_REFRESH_SECRET=maivantai_nodejs_refresh_secret
+    restart: always
+    depends_on:
+      - postgres
+    networks:
+      - ci-cd-network  
+  postgres:
+    image: postgres:16-alpine
+    container_name: ci-cd-vps-postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Vantai@12
+      - POSTGRES_DB=vps_database
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - ci-cd-network
+networks:
+  ci-cd-network:
+    driver: bridge
+volumes:
+  pgdata:
